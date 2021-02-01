@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Node.js課題3</title>
+</head>
+<body>
+    <h1 id="title"></h1>
+    <p id="question">再度チャレンジしたい場合は以下をクリック！！</p>
+    <button id="button">ホームに戻る</button>
+</body>
+<script>
+    let numberOfCorrectAnswers =  window.sessionStorage.getItem([`numberOfCorrectAnswers`]);
+    title.innerHTML = 'あなたの正答数は' + numberOfCorrectAnswers + 'です！！';
+    button.addEventListener('click', async () => {
+        window.sessionStorage.removeItem([`questionNumber`]);
+        window.sessionStorage.removeItem([`numberOfCorrectAnswers`]);
+        location.href=`http://localhost:3000/`
+    });
+</script>
+</html>

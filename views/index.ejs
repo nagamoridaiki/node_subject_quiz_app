@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Node.js課題3</title>
+</head>
+<body>
+    <h1 id="title">ようこそ</h1>
+    <div id="generate"></div>
+    <p id="question">以下のボタンをクリック</p>
+    <button id="button">開始</button>
+    <div id="choicesList"></div>
+</body>
+<script>
+const button = document.getElementById('button')
+title = document.getElementById('title');
+question = document.getElementById('question');
+choicesList = document.getElementById('choicesList');
+generate = document.getElementById('generate');
+const url = "https://opentdb.com/api.php?amount=10";
+let shuffleChoices = [];
+let choices = [];
+let numberOfCorrectAnswers = 0;
+let questionNumber = 0;
+const ALL_QUIZ_COUNT = 10;//出題問題数
+
+
+//開始ボタン押下時の処理
+button.addEventListener('click', async () => {
+    //通信中の処理
+    title.innerHTML = '取得中';
+    question.innerHTML = '少々お待ちください';
+    button.style.visibility = "hidden"
+
+    //問題データを取得
+    try {
+        const response = await fetch(url);
+        const json = await response.json();
+        json.results.forEach((result, index) => {
+            window.sessionStorage.setItem([`questions${index}`], result['question']);
+            window.sessionStorage.setItem([`correctAnswers${index}`], result['correct_answer']);
+            window.sessionStorage.setItem([`incorrectAnswers${index}`], result['incorrect_answers']);
+            window.sessionStorage.setItem([`categories${index}`], result['category']);
+            window.sessionStorage.setItem([`difficulties${index}`], result['difficulty']);
+        })
+        window.sessionStorage.setItem([`questionNumber`], 0);
+        window.sessionStorage.setItem([`numberOfCorrectAnswers`], 0);
+
+        location.href=`http://localhost:3000/quiz/id=${questionNumber + 1}`
+    } catch (e) {
+        console.error('Error:', e);
+        alert(e);
+    }
+})
+
+</script>
+</html>
