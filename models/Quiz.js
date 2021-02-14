@@ -12,14 +12,14 @@ let choices = [];
 let calledApiQuiz;
 
 module.exports = {
-    index: async function (questionId) {
+    createOneQuiz: async function (questionId) {
         questionId = parseInt(questionId);
         //1問目の前に10問分のテストデータをAPIで取得し保存する。
         if (questionId === 1) {
             calledApiQuiz = await callApi()
         }
-        let oneData = subjectQuizData(calledApiQuiz.results, questionId)//１問だけクイズデータを作る。
-        return oneData
+        const oneQuestionData = subjectQuizData(calledApiQuiz.results, questionId)//１問だけクイズデータを作る。
+        return oneQuestionData
     },
 }
 
@@ -29,12 +29,8 @@ function callApi () {
         fetch(url)
         .then((response) => {
             if(response.ok) {
-            return response.json()
-            } else {
-            throw new Error();
+                resolve(response.json())
             }
-        }).then((response) => {
-            resolve(response)
         })
         .catch((error) => {
             console.log(error)
@@ -46,8 +42,8 @@ function callApi () {
 //１問だけクイズデータを作る。
 function subjectQuizData (quizList, number) {
     
-    let questionData = {}
-    let quizListNumber = number - 1;
+    const questionData = {}
+    const quizListNumber = number - 1;
 
     questionArray.push(quizList[quizListNumber]['question']);
     correctAnswerArray.push(quizList[quizListNumber]['correct_answer']);
