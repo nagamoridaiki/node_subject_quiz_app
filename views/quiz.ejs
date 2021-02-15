@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Node.js課題3</title>
+</head>
+<body>
+    <h1 id="title">問題<%= onedata.questionNumber %></h1>
+    <div id="generate">
+        <h4>[ジャンル]  <%= onedata.categories %> </h4>
+        <h4>[難易度] <%= onedata.difficulties %></h4>
+    </div>
+    <p id="question"><%= onedata.questionArray %></p>
+    <form action="<%=`/quiz/${onedata.questionNumber}`%>" method="post">
+        <input type="hidden" name="correctAnswer" value="<%= onedata.correctAnswerArray %>">
+    <% onedata.shuffleChoices.forEach(shuffleChoices => { %>
+        <tr><button name="yourAnswer" value="<%= shuffleChoices %>"><%= shuffleChoices %></button></tr>
+    <% }); %>
+    </form>
+</body>
+</html>

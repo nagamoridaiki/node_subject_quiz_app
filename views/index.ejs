@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Node.js課題3</title>
+</head>
+<body>
+    <h1 id="title">ようこそ</h1>
+    <div id="generate"></div>
+    <p id="question">以下のボタンをクリック</p>
+    <button id="button">開始</button>
+    <div id="choicesList"></div>
+</body>
+<script>
+    const button = document.getElementById('button')
+    title = document.getElementById('title');
+    question = document.getElementById('question');
+
+    button.addEventListener('click', async () => {
+        title.innerHTML = '取得中';
+        question.innerHTML = '少々お待ちください';
+        button.style.visibility = "hidden"
+
+        location.href="http://localhost:3000/quiz/1"
+    })
+</script>
+</html>

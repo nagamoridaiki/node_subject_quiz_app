@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Node.js課題3</title>
+</head>
+<body>
+    <h1 id="title">あなたの正答数は<%= numberOfCorrectAnswers %>です！！</h1>
+    <p id="question">再度チャレンジしたい場合は以下をクリック！！</p>
+    <button id="button">ホームに戻る</button>
+</body>
+<script>
+    const button = document.getElementById('button')
+    button.addEventListener('click', async () => {
+        location.href="http://localhost:3000/"
+    })
+
+</script>
+</html>
